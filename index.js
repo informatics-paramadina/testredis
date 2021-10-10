@@ -1,6 +1,14 @@
 const Queue = require("bull");
 
-const testQueue = new Queue("test queue", {
+const antrian1 = new Queue("test queue", {
+  redis: {
+    port: "15629",
+    host: "redis-15629.c16.us-east-1-3.ec2.cloud.redislabs.com",
+    password: "Alghi7198254!",
+  },
+});
+
+const antrian2 =  new Queue("test queue", {
   redis: {
     port: "15629",
     host: "redis-15629.c16.us-east-1-3.ec2.cloud.redislabs.com",
@@ -9,22 +17,23 @@ const testQueue = new Queue("test queue", {
 });
 
 
+
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
-testQueue.process(async (job, done)=>{
+antrian1.process(async (job, done)=>{
     await delay(5000);
-    console.log(job.data.text)
+    console.log(job.data);
 
     done();
 })
 
-
-
-testQueue.add({text: 'hei'})
-testQueue.add({text: 'apakabar'})
-testQueue.add({text: 'yuhuuuu'})
-testQueue.add({text: 'ggggg'})
-
-setTimeout(()=>{
-    testQueue.add({text: 'wuwuwuwue!!'})
-}, 1000)
+let rand = Math.floor(Math.random()*11);
+console.log(rand);
+if(rand%2)
+{
+  console.log('antrian 1');
+  antrian1.add({id_pendaftaran: 'a', nama: 'a'});
+} else {
+  console.log('antrian ');
+  antrian2.add({id_pendaftaran: 'a', nama: 'a'});
+}
