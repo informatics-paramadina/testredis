@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bull": "^3.29.2"
+    "bull": "^3.29.2",
+    "nodemailer": "^6.6.5"
   }
 }
